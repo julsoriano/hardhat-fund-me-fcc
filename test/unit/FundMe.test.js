@@ -2,6 +2,8 @@ const { assert, expect } = require("chai")
 const { network, deployments, ethers } = require("hardhat")
 const { developmentChains } = require("../../helper-hardhat-config")
 
+console.log(network.name) // hardhat
+console.log(!developmentChains.includes(network.name)) // false
 !developmentChains.includes(network.name)
     ? describe.skip
     : describe("FundMe", function () {
@@ -65,6 +67,7 @@ const { developmentChains } = require("../../helper-hardhat-config")
                   // Act
                   const transactionResponse = await fundMe.withdraw()
                   const transactionReceipt = await transactionResponse.wait()
+
                   const { gasUsed, effectiveGasPrice } = transactionReceipt
                   const gasCost = gasUsed.mul(effectiveGasPrice)
 
